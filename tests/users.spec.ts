@@ -1,6 +1,5 @@
 import { defaultUser } from "../data/users";
 import { expect, test } from "../fixtures/activities-test";
-import { defaultHttpHeaders } from "../http-requests/shared/http-headers";
 import {
   createUserRequest,
   getUserRequest,
