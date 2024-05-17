@@ -1,9 +1,8 @@
-import { defaultUser } from "../data/users";
 import { endpoint } from "./endpoints";
 import { GetRequest, HttpHeader, PostRequest } from "./http-request-commands";
 import { defaultHttpHeaders } from "./shared/http-headers";
 
-interface CreateUserHeader extends HttpHeader {
+interface UsersHeader extends HttpHeader {
   "Content-Type": string;
   "X-Request-Id": string;
 }
@@ -29,22 +28,22 @@ interface UserResponse extends User {
 }
 
 interface CreateUserData {
-  headers: CreateUserHeader;
+  headers?: UsersHeader;
   data: User;
 }
 
-export const createUserRequest = (
-  { headers, data }: CreateUserData = {
-    data: defaultUser,
-    headers: defaultHttpHeaders(),
-  }
-) =>
+export const createUserRequest = ({ headers, data }: CreateUserData) =>
   new PostRequest<UserResponse>(endpoint.createUser(), {
-    headers,
+    headers: headers ?? defaultHttpHeaders(),
     data,
   });
 
-export const getUserRequest = (id: number) =>
+interface GetUserData {
+  headers?: UsersHeader;
+  id: number;
+}
+
+export const getUserRequest = ({ headers, id }: GetUserData) =>
   new GetRequest<UserResponse>(endpoint.getUser(id), {
-    headers: defaultHttpHeaders(),
+    headers: headers ?? defaultHttpHeaders(),
   });

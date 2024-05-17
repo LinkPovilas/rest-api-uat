@@ -3,11 +3,11 @@ import { expect, test } from "../fixtures/activities-test";
 import {
   createUserRequest,
   getUserRequest,
-} from "../http-requests/users-request";
+} from "../http-requests/users-requests";
 
 test.describe("Users", () => {
   test("should save a new user", async ({ send }) => {
-    const response = await send.a(createUserRequest());
+    const response = await send.a(createUserRequest({ data: defaultUser }));
     expect(response.ok()).toBeTruthy();
 
     const responseBody = await response.json();
@@ -22,7 +22,7 @@ test.describe("Users", () => {
 
   test("should return a user", async ({ send }) => {
     const FIRST_USER = 1;
-    const response = await send.a(getUserRequest(FIRST_USER));
+    const response = await send.a(getUserRequest({ id: FIRST_USER }));
 
     expect(await response.json()).toEqual(
       expect.objectContaining({

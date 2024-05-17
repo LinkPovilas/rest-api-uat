@@ -1,4 +1,4 @@
-import { User } from "../http-requests/users-request";
+import { User } from "../http-requests/users-requests";
 
 export const defaultUser: User = {
   name: "John Doe",
